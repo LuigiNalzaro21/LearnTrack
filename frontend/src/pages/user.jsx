@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const User = () => {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [error, setError] = useState(""); // State to manage error messages
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -25,17 +26,22 @@ const User = () => {
       const response = await axios.post('http://localhost:4000/signin', formData);
       console.log(response.data);
       if (response.data.success) {
-        // Redirect to the evaluate page upon successful sign-in
         navigate('/evaluate');
       } else {
-        // Handle sign-in error (e.g., display error message)
-        console.log('Sign-in failed:', response.data.message);
+        // Handle different error scenarios
+        if (response.data.message === 'No such account exists') {
+          setError('No such account exists');
+        } else if (response.data.message === 'Invalid email or password') {
+          setError('Invalid email or password');
+        } else {
+          setError('Sign-in failed');
+        }
       }
     } catch (error) {
       console.error('Error signing in:', error);
-      // Handle sign-in error (e.g., display error message)
+      setError('Internal server error');
     }
-  };  
+  };
 
   return (
     <div className='bg-gray-900 h-full md:h-[125vh] lg:h-[100vh] w-full'>

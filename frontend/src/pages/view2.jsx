@@ -23,7 +23,7 @@ const View2 = () => {
     };
 
     return (
-        <div className='bg-gray-900 h-auto pb-5'>
+        <div className='bg-gray-900 h-[100vh] pb-5'>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
             {/* Header */}
@@ -39,7 +39,8 @@ const View2 = () => {
                 </div>
             </div>
 
-            <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 bg-gray-600 p-3 md:p-4 lg:p-5 rounded-[20px] mb-20 md:mb-4 lg:mb-5'>
+            <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 bg-gray-600 mt-[1%] md:mt-0 lg:mt-0
+             p-3 md:p-4 lg:p-5 rounded-[20px] mb-20 md:mb-4 lg:mb-5'>
 
                 <Link to='/add' className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-700 w-[130%] md:w-[110%] lg:w-[120%] ml-[40%] md:ml-[10%] lg:ml-[20%] p-3 md:p-4 lg:p-5
                  rounded-[20px] whitespace-nowrap hover:bg-gray-800 text-center'>Create Records</Link>
@@ -50,9 +51,9 @@ const View2 = () => {
 
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px]'>
+            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[15%] md:mt-[4%] lg:mt-[2%] h-[55vh] md:h-[70vh] lg:h-[67vh]'>
 
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 rounded-[20px] overflow-x-auto">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 rounded-[20px] overflow-y-scroll">
 
                 <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3'>
                     <Link to="/view" className='text-white text-center text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 rounded-tl-[20px] bg-gray-700 hover:bg-gray-500'>Teacher's Data</Link>
@@ -63,7 +64,7 @@ const View2 = () => {
                 <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 m-6 md:m-8 lg:m-10 place-items-center bg-gray-600 p-3 md:p-4 lg:p-5 rounded-[20px]'>
                     {evaluations.map((evaluation, index) => (
                         <div key={index} className='bg-gray-800 m-2 md:m-3 lg:m-4 p-2 md:p-3 lg:p-4 rounded-[20px] w-[100%] shadow-lg shadow-gray-950'>
-                            <h2 className='text-white text-lg md:text-2xl lg:text-3xl font-bold mb-3'>Student #{index + 1}</h2>
+                            <h2 className='text-white text-lg md:text-2xl lg:text-3xl font-bold mb-3'>Evaluation #{index + 1}</h2>
                             <p className='text-white text-lg md:text-2xl lg:text-3xl'>Teacher's Name: {evaluation.fullname}</p>
                             <h3 className='text-white text-1xl md:text-lg lg:text-2xl font-bold mt-10 mb-6'>Questions and Answers:</h3>
                             <ul className='text-white'>

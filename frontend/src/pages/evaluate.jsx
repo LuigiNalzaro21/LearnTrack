@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Evaluate = () => {
-    const [title, setTitle] = useState("Evaluation Page");
     const [selectedOptions, setSelectedOptions] = useState({
         understand1: '',
         understand2: '',
@@ -27,8 +26,17 @@ const Evaluate = () => {
         });
     };
 
+    // Function to check if all radio buttons are selected and none are "no"
+    const canProceed = () => {
+        return (
+            selectedOptions.understand1 === 'yes' &&
+            selectedOptions.understand2 === 'yes' &&
+            selectedOptions.understand3 === 'yes'
+        );
+    };
+
     return (
-        <div className='bg-gray-900 w-full'>
+        <div className='bg-gray-900 h-full w-full pb-5'>
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
@@ -45,11 +53,11 @@ const Evaluate = () => {
                 </div>
             </div>
 
-            <h1 className='text-white text-1xl md:text-2xl lg:text-3xl font-bold m-10'>Teacher Evaluation Form</h1>
+            <h1 className='text-white text-1xl md:text-2xl lg:text-3xl font-bold m-12 mt-2'>Teacher Evaluation Form</h1>
 
-            <p className='text-white text-1xl md:text-2xl lg:text-3xl m-10 mb-0'>Before proceeding with the evaluation, please read and agree to the following:</p>
+            <p className='text-white text-1xl md:text-2xl lg:text-3xl m-12 mb-0'>Before proceeding with the evaluation, please read and agree to the following:</p>
 
-            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1'>
+            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 m-2'>
 
                 <div className='box 1 m-10 p-1 md:p-2 lg:p-1 bg-gray-600 rounded-[20px]'>
 
@@ -148,9 +156,14 @@ const Evaluate = () => {
                 </div>
 
                 <div className='buttons grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 place-items-center mt-0 mb-10'>
-                    <Link to="/form" className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-700 hover:bg-gray-950 hover:shadow-black hover:shadow-lg text-center
-                    transition-transform duration-300 transform hover:scale-105 p-2 md:p-3 lg:p-5 w-[70%] md:w-[60%] lg:w-[55%] rounded-[10px]
-                    translate-x-[5%] md:translate-x-[20%] lg:translate-x-[25%]'>Proceed</Link>
+                    <Link
+                        to={canProceed() ? "/form" : "#"}
+                        className={`text-white text-1xl md:text-2xl lg:text-3xl bg-gray-700 hover:bg-gray-950 hover:shadow-black hover:shadow-lg text-center
+                        transition-transform duration-300 transform hover:scale-105 p-2 md:p-3 lg:p-5 w-[70%] md:w-[60%] lg:w-[55%] rounded-[10px]
+                        translate-x-[5%] md:translate-x-[20%] lg:translate-x-[25%] ${canProceed() ? '' : 'pointer-events-none opacity-50'}`}
+                    >
+                        Proceed
+                    </Link>
                     <button className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-700 hover:bg-gray-950 hover:shadow-black hover:shadow-lg text-center
                     transition-transform duration-300 transform hover:scale-105 p-2 md:p-3 lg:p-5 w-[70%] md:w-[60%] lg:w-[55%] rounded-[10px]
                     translate-x-[-5%] md:translate-x-[-20%] lg:translate-x-[-25%]' onClick={handleReset}>Reset</button>

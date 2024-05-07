@@ -37,7 +37,7 @@ const View = () => {
   };
 
   return (
-    <div className='bg-gray-900 h-[100vh] md:h-[100vh] lg:h-auto w-full pb-0 md:pb-1 lg:pb-1'>
+    <div className='bg-gray-900 h-[100vh] md:h-[100vh] lg:h-[100vh] w-full pb-0 md:pb-1 lg:pb-1'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
       <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2'>
         <div className='Title justify-start'>
@@ -51,7 +51,7 @@ const View = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[10%] md:mt-[5%] lg:mt-[2%]
+      <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[1%] md:mt-0 lg:mt-0
         bg-gray-600 p-3 md:p-4 lg:p-5 rounded-[20px] mb-20 md:mb-4 lg:mb-5'>
 
         <Link to='/add' className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-700 w-[130%] md:w-[110%] lg:w-[120%] ml-[40%] md:ml-[10%] lg:ml-[20%] p-3 md:p-4 lg:p-5
@@ -64,14 +64,14 @@ const View = () => {
 
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[20%] md:mt-[10%] lg:mt-[3%]'>
+      <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[15%] md:mt-[4%] lg:mt-[2%] h-[55vh] md:h-[70vh] lg:h-[67vh]'>
 
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 rounded-[20px] overflow-x-auto">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 rounded-[20px] overflow-x-auto lg:overflow-y-scroll">
 
           <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3'>
             <button className='text-white text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 rounded-tl-[20px] bg-gray-900'>Teacher's Data</button>
             <Link to='/sheets' className='text-white text-center text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 bg-gray-700 hover:bg-gray-500'>Questionnaires</Link>
-            <Link to='/view2' className='text-white text-center text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 rounded-tr-[20px] bg-gray-700 hover:bg-gray-500'>Evaluation Results</Link>
+            <Link to='/view2' className='text-white text-balance text-center whitespace-nowrap text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 rounded-tr-[20px] bg-gray-700 hover:bg-gray-500'>Evaluation Results</Link>
           </div>
 
           <table className="border-collapse border border-gray-600 m-3 md:m-5 lg:m-10">

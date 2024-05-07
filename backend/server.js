@@ -32,16 +32,28 @@
     })
 
     // POST endpoint for sign-in
-    app.post('/signin', (req, res) => {
+    app.post('/signin', async (req, res) => {
         const { email, password } = req.body;
-        // Perform authentication logic here
-        // Assuming authentication is successful for demonstration
-        const success = true;
-        const message = 'Sign-in successful';
-        if (success) {
-        res.status(200).json({ success: true, message });
-        } else {
-        res.status(401).json({ success: false, message: 'Invalid email or password' });
+        try {
+            // Check if the user exists in the database
+            const user = await signupModel.findOne({ email });
+
+            if (!user) {
+                return res.status(401).json({ success: false, message: 'No such account exists' });
+            }
+
+            // Perform authentication logic here
+            // For now, assuming authentication is successful for demonstration
+            const success = true;
+            const message = 'Sign-in successful';
+            if (success) {
+                res.status(200).json({ success: true, message });
+            } else {
+                res.status(401).json({ success: false, message: 'Invalid email or password' });
+            }
+        } catch (error) {
+            console.error('Error signing in:', error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
         }
     });
 

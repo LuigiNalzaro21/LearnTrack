@@ -6,6 +6,7 @@ const Form = () => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
     const [teachers, setTeachers] = useState([]);
+    const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
     useEffect(() => {
         fetchData();
@@ -13,23 +14,18 @@ const Form = () => {
     
     const fetchData = async () => {
         try {
-            // Fetch teachers
-            const teachersResponse = await axios.get('http://localhost:4000/teachers');
-            if (teachersResponse.data.success) {
-                // Assuming the server sends an array of objects with 'fullname' property
-                setTeachers(teachersResponse.data.data); // Make sure to access the 'data' property
-            } else {
-                console.error('Failed to fetch teachers data');
-            }
-    
-            // Fetch questions
-            const questionsResponse = await axios.get('http://localhost:4000/questions');
-            if (questionsResponse.data.success) {
+            // Fetch teachers and questions
+            const [teachersResponse, questionsResponse] = await Promise.all([
+                axios.get('http://localhost:4000/teachers'),
+                axios.get('http://localhost:4000/questions')
+            ]);
+            if (teachersResponse.data.success && questionsResponse.data.success) {
+                setTeachers(teachersResponse.data.data);
                 const questionData = questionsResponse.data.questions.map(questionObj => questionObj.question);
                 setQuestions(questionData);
                 setAnswers(Array(questionData.length).fill(''));
             } else {
-                console.error('Failed to fetch questionnaire data');
+                console.error('Failed to fetch data');
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -47,47 +43,34 @@ const Form = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const selectedTeacherId = e.target.teacherName.value; // Assuming you're storing the teacher's ID in the dropdown value
-            
-            // Find the selected teacher object from the teachers array
+            const selectedTeacherId = e.target.teacherName.value;
             const selectedTeacher = teachers.find(teacher => teacher._id === selectedTeacherId);
-            
-            // Ensure that the selectedTeacher is not undefined and contains the full name
             if (selectedTeacher && selectedTeacher.fullname) {
-                // Create an array to store questions and answers
                 const questionsAndAnswers = questions.map((question, index) => ({
                     question: question,
                     answer: answers[index]
                 }));
-    
-                // Make a POST request to submit evaluation data
                 const response = await axios.post('http://localhost:4000/submit', {
-                    teacherName: selectedTeacher.fullname, // Send the full name of the teacher
+                    teacherName: selectedTeacher.fullname,
                     questionsAndAnswers: questionsAndAnswers,
                 });
-    
-                // Check if the submission was successful
                 if (response.data.success) {
-                    // Display success message
-                    window.alert('Answers submitted successfully');
+                    setShowModal(true); // Show modal on successful submission
                 } else {
-                    // Display error message if submission failed
                     window.alert('Failed to submit answers. Please try again.');
                 }
             } else {
-                // Handle case where selectedTeacher or its fullname is undefined
                 console.error('Selected teacher or fullname is undefined');
                 window.alert('Failed to submit answers. Please select a valid teacher.');
             }
         } catch (error) {
             console.error('Error submitting answers:', error);
-            // Display error message if an error occurs during submission
             window.alert('Failed to submit answers. Please try again.');
         }
     };
             
     return (
-        <div className='bg-gray-900 h-full md:h-full lg:h-auto w-full pb-[87.6%] md:pb-[43.6%] lg:pb-[17.1%]'>
+        <div className='bg-gray-900 h-[100vh] w-full overflow-y-hidden'>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
             <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2'>
                 <div className='Title justify-start'>
@@ -103,8 +86,8 @@ const Form = () => {
 
             <h1 className='text-white text-1xl md:text-2xl lg:text-3xl font-bold m-12 mt-2'>Teacher Evaluation Form</h1>
 
-            <div className='flex justify-center mt-8'>
-                <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-700 m-0 p-3 md:p-4 lg:p-3 w-[81%] md:w-[85%] lg:w-[95%] rounded-[20px] place-items-center mb-10'>
+            <div className='flex justify-center h-[80vh] mt-[-3%] md:mt-[-2%] lg:mt-[-1.5%]'>
+                <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 overflow-y-scroll overflow-x-hidden bg-gray-700 m-0 p-3 md:p-4 lg:p-3 w-[81%] md:w-[85%] lg:w-[95%] rounded-[20px] place-items-center mb-10'>
 
                     <form onSubmit={handleSubmit} className='p-10 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 lg:gap-x-14 place-items-center'>
 
@@ -134,6 +117,29 @@ const Form = () => {
                             </div>
                         ))}
 
+                        {showModal && (
+                                        <div className="fixed inset-0 flex items-center justify-center z-50">
+                                            <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+                                            <div className="relative bg-gray-700 rounded-[20px] p-6 md:p-8 lg:p-10 lg:mt-[-4%]">
+                                                <h1 className='text-white text-lg md:text-2xl lg:text-3xl mb-5'>Teacher Evaluation Form</h1>
+                                                <hr className='mb-4 md:mb-6 lg:mb-8'></hr>
+                                                <h2 className="text-white text-1xl md:text-lg lg:text-2xl mb-6 md:mb-8 lg:mb-10">Your response has been saved successfully</h2>
+                                                <div className="flex justify-center gap-x-10">
+                                                    <button onClick={() => setShowModal(false)} className="bg-gray-800 hover:shadow-lg hover:shadow-black
+                                                     hover:bg-gray-900 transition-transform duration-300 transform hover:scale-105 text-white text-center font-bold 
+                                                    p-3 md:p-4 lg:p-5 rounded-[50px] w-[50%]">
+                                                        Submit a new form
+                                                    </button>
+                                                    <Link to="/evaluate" className="bg-gray-800 hover:shadow-lg hover:shadow-black hover:bg-gray-900
+                                                     transition-transform duration-300 transform hover:scale-105 text-white text-center font-bold 
+                                                    p-3 md:p-4 lg:p-5 rounded-[50px] w-[50%]">
+                                                        Go Back
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
                         <div className="mb-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 place-items-center lg:place-items-center mt-[3%] md:mt-[4%] lg:mt-[5%]">
                             <Link to="/evaluate" className="text-white text-center bg-gray-600 hover:shadow-lg hover:shadow-black hover:bg-gray-900 transition-transform duration-300 transform hover:scale-105 
                             rounded-[50px] p-3 md:p-4 lg:p-5 text-1xl md:text-2xl lg:text-3xl w-[120%] md:w-[150%] lg:w-[170%] translate-x-[-25%]
@@ -146,8 +152,10 @@ const Form = () => {
                     </form>
                 </div>
             </div>
+            
         </div>
     );
 }
 
 export default Form;
+

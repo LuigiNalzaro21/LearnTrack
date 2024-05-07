@@ -87,8 +87,21 @@ const Questions = () => {
     };
     
     const handleSubmit = async () => {
+        // Check if there are any dynamically added forms
+        const questionsContainer = document.getElementById('questions-container');
+        if (!questionsContainer || questionsContainer.children.length === 0) {
+            // If there are no dynamically added forms, show an alert
+            alert("Please add questions first.");
+            return;
+        }
+    
         try {
             const questions = Array.from(document.querySelectorAll('input[name="untitled"]')).map(input => input.value);
+            // Check if any question has been added
+            if (questions.every(question => !question.trim())) {
+                alert("Please add at least one question.");
+                return;
+            }
             // Make a POST request using Axios
             const response = await axios.post('http://localhost:4000/questions', {
                 questions: questions, // Sending questions as an array
@@ -108,7 +121,7 @@ const Questions = () => {
     };    
                        
 return (
-    <div className='bg-gray-900 h-auto md:h-auto lg:h-full w-full pb-[46%] md:pb-10 lg:pb-[7%]'>
+    <div className='bg-gray-900 h-auto md:h-auto lg:h-full w-full pb-[46%] md:pb-10 lg:pb-[9.6%]'>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
@@ -124,7 +137,7 @@ return (
             </div>
         </div>
 
-        <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[1%] md:mt-[2%] lg:mt-[2%]
+        <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[1%] md:mt-[2%] lg:mt-0
         bg-gray-600 p-3 md:p-4 lg:p-5 rounded-[20px] mb-20 md:mb-4 lg:mb-10'>
 
             <button className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-800 w-[130%] md:w-[110%] lg:w-[120%] ml-[40%] md:ml-[10%] lg:ml-[20%] p-3 md:p-4 lg:p-5
@@ -137,7 +150,7 @@ return (
 
         </div>
 
-        <div className='justify-center bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[-10%] md:mt-[5%] lg:mt-[3%] p-1'>
+        <div className='justify-center bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[-10%] md:mt-[5%] lg:mt-0 p-1'>
             <div id='questions-container' className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 w-[81%] md:w-[85%] lg:w-[95%] rounded-[20px] rounded-bl-none rounded-br-none'>
 
                 <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 w-[100%]'>

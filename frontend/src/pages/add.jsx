@@ -29,7 +29,7 @@ const Add = () => {
     };    
 
     return (
-        <div className='bg-gray-900 h-[125vh] md:h-[155vh] lg:h-[130vh] w-full'>
+        <div className='bg-gray-900 h-[100vh] md:h-[100vh] lg:h-[100vh] w-full'>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
             <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2'>
@@ -44,7 +44,7 @@ const Add = () => {
                 </div>
             </div>
 
-            <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[1%] md:mt-[2%] lg:mt-[2%]
+            <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 m-8 md:m-16 lg:m-16 place-items-center gap-x-10 md:gap-x-5 lg:gap-x-0 mt-[1%] md:mt-[2%] lg:mt-0
              bg-gray-600 p-3 md:p-4 lg:p-5 rounded-[20px] mb-20 md:mb-4 lg:mb-10'>
 
                 <button className='text-white text-1xl md:text-2xl lg:text-3xl bg-gray-800 w-[130%] md:w-[110%] lg:w-[120%] ml-[40%] md:ml-[10%] lg:ml-[20%] p-3 md:p-4 lg:p-5
@@ -58,8 +58,8 @@ const Add = () => {
             </div>
 
         {/* Form for adding instructor */}
-        <div className='flex justify-center bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] mt-[-10%] md:mt-[5%] lg:mt-[3%]'>
-                <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 w-[81%] md:w-[85%] lg:w-[95%] rounded-[20px] place-items-center'>
+        <div className='flex justify-center bg-gray-800 m-8 md:m-16 lg:m-16 rounded-[20px] h-[74vh] md:h-[67vh] lg:h-[67vh] mt-[-10%] md:mt-[5%] lg:mt-0'>
+                <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 bg-gray-600 m-10 w-[81%] md:w-[85%] lg:w-[95%] rounded-[20px] place-items-center overflow-y-scroll'>
 
                 <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 w-[100%]'>
                     <button className='text-white text-1xl md:text-2xl lg:text-3xl p-3 md:p-4 lg:p-5 rounded-tl-[20px] bg-gray-900'>Add Instructor</button>
