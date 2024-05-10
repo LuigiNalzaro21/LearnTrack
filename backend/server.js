@@ -1,21 +1,22 @@
-    const express = require('express')
-    require('dotenv').config()
-    const mongoose = require('mongoose')
-    const cors = require('cors')    
-    const signinModel = require('./model/signinModel')
-    const signupModel = require('./model/signupModel')
-    const Teachers = require('./model/Teachers')
-    const Question = require('./model/Question')
-    const Evaluate = require('./model/Evaluate')
-    const bodyParser = require('body-parser');
+    const express = require('express') // Importing the Express.js library for building web applications
+    require('dotenv').config() // Loading environment variables from a .env file into process.env
+    const mongoose = require('mongoose') // Importing Mongoose for MongoDB object modeling
+    const cors = require('cors') // Importing CORS middleware for handling Cross-Origin Resource Sharing
+    const signupModel = require('./model/signupModel') // Importing the signupModel schema from the ./model/signupModel file
+    const Teachers = require('./model/Teachers') // Importing the Teachers schema from the ./model/Teachers file
+    const Question = require('./model/Question') // Importing the Question schema from the ./model/Question file
+    const Evaluate = require('./model/Evaluate') // Importing the Evaluate schema from the ./model/Evaluate file
+    const bodyParser = require('body-parser') // Importing body-parser middleware for parsing request bodies
+
+    const app = express() // Creating an Express application instance
+    app.use(cors()) // Using CORS middleware to handle Cross-Origin Resource Sharing
+    app.use(express.json()) // Using built-in middleware to parse JSON bodies of incoming requests
+    app.use(bodyParser.json()) // Using body-parser middleware to parse JSON bodies of incoming requests
 
 
-    const app = express()
-    app.use(cors())
-    app.use(express.json())
-    app.use(bodyParser.json());
+    // ENDPOINTS
 
-    // get 
+    // signupModel.js: get 
     app.get('/', async (req, res)=> {
         const data = await signupModel.find();
 
@@ -31,7 +32,7 @@
         res.send({ success: true, message : "data saved successfully" })
     })
 
-    // POST endpoint for sign-in
+    // user.jsx: POST endpoint for sign-in
     app.post('/signin', async (req, res) => {
         const { email, password } = req.body;
         try {
@@ -121,7 +122,7 @@
         }
     });
 
-    // Add a new route to count the number of student accounts
+    // main.jsx Add a new route to count the number of student accounts
     app.get('/students/count', async (req, res) => {
         try {
             const count = await signupModel.countDocuments();

@@ -55,7 +55,11 @@ const Form = () => {
                     questionsAndAnswers: questionsAndAnswers,
                 });
                 if (response.data.success) {
-                    setShowModal(true); // Show modal on successful submission
+                    // Clear the answers array
+                    setAnswers(Array(questions.length).fill(''));
+
+                    // Show modal on successful submission
+                    setShowModal(true);
                 } else {
                     window.alert('Failed to submit answers. Please try again.');
                 }

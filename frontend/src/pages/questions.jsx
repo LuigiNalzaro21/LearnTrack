@@ -121,7 +121,7 @@ const Questions = () => {
     };    
                        
 return (
-    <div className='bg-gray-900 h-auto md:h-auto lg:h-full w-full pb-[46%] md:pb-10 lg:pb-[9.6%]'>
+    <div className='bg-gray-900 h-auto md:h-auto lg:h-full w-full pb-[46%] md:pb-10 lg:pb-[10%]'>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
